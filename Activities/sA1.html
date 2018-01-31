@@ -1,0 +1,95 @@
+<!DOCTYPE html> <title>HW 4: Basic Form</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+
+<style>
+    .red-text {
+        color: red;
+    }
+    
+    body{
+        background:#0000FF;
+    }
+  
+    ul{
+        list-style: none;
+    }
+      
+    .questions{
+        font-weight:bold;
+    }
+    .pics{
+        width:75%;
+    }
+    
+    li2{
+      font-style:italic;
+      font-weight:normal;
+    }
+    li{
+        font-size: 1.1em;
+        font-family: arial;
+        color:black;
+    }
+
+    #classLink{
+        display:inline;
+    }
+    .thick-green-border {
+        border-color: green;
+        border-width: 10px;
+        border-style: solid;
+        border-radius: 50%;
+    }
+    
+    .smaller-image {
+        width: 100px;
+    }
+    
+    * {
+      font-size: 1.1em;
+      font-family: arial;
+      color:black;
+    }
+    h1{
+        font-family: arial;
+        color:black;
+    }
+</style>
+
+
+<body class="container-fluid">
+<h1>Tip Calculator</h1>
+<hr>
+
+<input type="text"
+       id="checkAmount"
+       placeholder = "bill">
+    
+<input type="text"
+       id="tipPercentage"
+       placeholder = "percentage">
+    
+<button id="calculate">Caculate tip</button>
+    
+<div id="calculatedTip"></div>
+<hr>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(function() {
+        
+        $("#calculate").on("click", function() {
+            
+            var tip = $("#checkAmount").val() * $("#tipPercentage").val();
+            
+            console.log(tip);
+            
+            $("#calculatedTip").html("Tip: $" + tip);
+        });
+        
+      });
+      
+      
+    </script>
+</body>
