@@ -1,55 +1,59 @@
 <!doctype html>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
 
 <body>
-    <div class="container"><p>tesing Git</p></div>
     <div class="container" id="home"></div>
     
     <div class="container" id="search">
-        <form>
-          <input type="text" id="query"><br>
-          <input type="submit" id="btnSearch" value="Search">
-        </form>
+          <input type="text" name="tempName" id="query" placeholder="enter a search term">
+          <button type="submit" name="tempName" id="btnSearch">Search</button>
     </div>
     
     <div class="container" id="results"></div>
+
+
     
-    
-    
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script>   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
-    <script>
+    <script type="text/javascript">
         // Built by LucyBot. www.lucybot.com
         function doSearch(){
+            if($("#query").val() == "")
+            $("body").append('<div><p> The searched paramter is: ' + $("#query").val() + '</p></div>');
             var url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json";
             url += '?' + $.param({
               'api-key': "19ba3156872e42d89d9ec7012eaf3efe",
               'query': $("#query").val()
             });
+
             $.ajax({
               url: url,
               method: 'GET',
             }).done(function(result) {
-              //console.log(result);
-              
-              $.each(result.results, function(i,v){
-                $("body").append(v.display_title + v.openin + '<br>')
-              })
-              
+
+                console.log($("#query").val())
+                console.log(result);
+
+
+                  $.each(result.results, function(i,v){
+                    $("#results").append(v.display_title + '\t-\t(' + v.opening_date + ')'+ '<br>');
+                  })
+
             }).fail(function(err) {
               throw err;
             });
         }
-        
-        $("#btnSearch").on("click",doSearch());
+
+        $("#btnSearch").on("click", doSearch());
     </script>
     
 </body>
+
+
