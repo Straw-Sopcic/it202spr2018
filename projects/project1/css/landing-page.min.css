@@ -165,3 +165,7 @@ footer.footer{padding-top:4rem;padding-bottom:4rem}
     color: #fed136;
     font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive;
 }
+
+#mainNav {
+    background-color: #212529;
+}
