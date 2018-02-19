@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+      
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous">
+      
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -15,7 +23,52 @@
       }
     </style>
       
+      
+      
     <link href="L10.css" rel="stylesheet">
+<!-- SET UP FOR GOOGLE CHARTS -->      
+     <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Department');
+            data.addColumn('number', 'Salaries');
+
+            // Set chart options
+            var options = {'title':'How Much Pizza I Ate Last Night',
+                           'width':400,
+                           'height':300,
+                            sliceVisibilityThreshold: .02};
+
+            $.get('https://data.cityofchicago.org/resource/tt4n-kn4t.json?$select=department,sum(annual_salary)&$group=department')
+                  .done( function(response){
+                      console.log(response);
+                      $.each(response, function(i,v){
+                          console.log(v.department, v.sum_annual_salary);
+                          data.addRow([v.department, parseFloat(v.sum_annual_salary)]);
+                      });
+                
+                        // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+                  })
+
+            
+      }
+    </script>
   </head>
   <body>
       
@@ -49,6 +102,9 @@
         </div>
       </div>
     </nav>
+      
+    <div id="chart_div"></div>  
+      
     <div id="map"></div>
       
       
@@ -132,7 +188,6 @@
           var heatmapData = [];
          $.each(results, function(i,v){
              if(v.hasOwnProperty("latitude") && v.hasOwnProperty("longitude")){
-                    console.log(v);
                     var latLng = new google.maps.LatLng(parseFloat(v.latitude), parseFloat(v.longitude));
                     heatmapData.push(latLng);
              }
