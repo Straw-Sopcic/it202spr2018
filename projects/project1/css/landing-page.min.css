@@ -19,7 +19,7 @@ header.masthead{
 }
 header.masthead .overlay{
     position:absolute;
-    background-color:#212529;
+    background-color: #022160;
     height:100%;
     width:100%;
     top:0;left:0;opacity:.3
@@ -64,7 +64,7 @@ header.masthead h1{
     padding-top:7rem;padding-bottom:7rem}
 .call-to-action .overlay{
     position:absolute;
-    background-color:#212529;
+    background-color:#022160;
     height:100%;width:100%;
     top:0;left:0;
     opacity:.3}
@@ -158,7 +158,7 @@ footer.footer{padding-top:4rem;padding-bottom:4rem}
     text-transform: uppercase;
     color: #fff;
     border: 0;
-    background-color: #fed136;
+    background-color: #FEC640;
     font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 #mainNav .navbar-brand {
@@ -167,5 +167,14 @@ footer.footer{padding-top:4rem;padding-bottom:4rem}
 }
 
 #mainNav {
-    background-color: #212529;
+    background-color: #022160;
 }
+
+/****** contact section ******/
+.bg-grey {
+    background-color: #f6f6f6;
+}
+.container-fluid {
+    padding: 60px 50px;
+}
+

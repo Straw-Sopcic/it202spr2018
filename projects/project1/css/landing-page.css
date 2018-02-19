@@ -31,7 +31,7 @@ header.masthead {
 
 header.masthead .overlay {
   position: absolute;
-  background-color: #212529;
+  background-color: #022160;
   height: 100%;
   width: 100%;
   top: 0;
@@ -117,7 +117,7 @@ header.masthead h1 {
 
 .call-to-action .overlay {
   position: absolute;
-  background-color: #212529;
+  background-color: #022160;
   height: 100%;
   width: 100%;
   top: 0;
@@ -217,7 +217,7 @@ footer.footer {
     text-transform: uppercase;
     color: #fff;
     border: 0;
-    background-color: #fed136;
+    background-color: #FEC640;
     font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 
@@ -227,5 +227,14 @@ footer.footer {
 }
 
 #mainNav {
-    background-color: #212529;
+    background-color: #022160;
+}
+
+
+/****** contact section ******/
+.bg-grey {
+    background-color: #f6f6f6;
+}
+.container-fluid {
+    padding: 60px 50px;
 }
