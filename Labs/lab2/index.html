@@ -12,11 +12,11 @@
 </head>
 
 <body>
-    <div class="container" id="home"> <p>NY TIMES MOVIE REVIEW SEARCH</p></div>
+    <div class="container" id="home"> NY Times movie review search</div>
     
-    <div class="container" name="tempName" id="search">
-          <input type="text" name="tempName" id="query" placeholder="enter a search term">
-          <button name="btnSearch" id="btnSearch">Search</button>
+    <div class="container" id="search">
+          <input type="text" id="query" placeholder="enter a search term">
+          <button id="btnSearch">Search</button>
     </div>
     
     <div class="container" id="results"></div>
@@ -36,11 +36,20 @@
     <script>
         // Built by LucyBot. www.lucybot.com
 
+        function loadResults(result){
+            console.log('we got this from the user query: ' + $('#query').val());
+                    console.log(result);
+
+
+                    $("#results").append('We have received ' + result.num_results + ' results' +
+                                         ' from searching: ' + $('#query').val() + '<br><br>');
+                      $.each(result.results, function(i,v){
+                        $("#results").append(v.display_title + '\t-\t(' + v.opening_date + ')'+ '<br>');
+                      })
+        }
 
         function doSearch(){
-
-            $( '#results' ).empty();
-
+                $( '#results' ).empty();
 
                 var url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json";
                 url += '?' + $.param({
@@ -53,19 +62,12 @@
                   method: 'GET',
                 }).done(function(result) {
 
-                    console.log('we got this from the user query: ' + $('#query').val());
-                    console.log(result);
-
-
-                      $.each(result.results, function(i,v){
-                        $("#results").append(v.display_title + '\t-\t(' + v.opening_date + ')'+ '<br>');
-                      })
+                    loadResults(result);
 
                 }).fail(function(err) {
                     console.log('this was a failure');
                   throw err;
                 });
-
         }
 
         $('#btnSearch').click( doSearch);
