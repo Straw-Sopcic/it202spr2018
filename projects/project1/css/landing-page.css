@@ -1,5 +1,6 @@
 body {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
 }
 
 h1,
@@ -10,7 +11,9 @@ h5,
 h6 {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 700;
+
 }
+
 
 header.masthead {
   position: relative;
@@ -204,4 +207,21 @@ footer.footer {
 }
 .portfolio-item {
   margin-bottom: 30px;
+}
+
+/****NAV BAR******/
+#mainNav .navbar-toggler {
+    font-size: 12px;
+    right: 0;
+    padding: 13px;
+    text-transform: uppercase;
+    color: #fff;
+    border: 0;
+    background-color: #fed136;
+    font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+#mainNav .navbar-brand {
+    color: #fed136;
+    font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive;
 }
