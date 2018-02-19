@@ -1,0 +1,19 @@
+/****NAV BAR******/
+#mainNav .navbar-toggler {
+    font-size: 12px;
+    right: 0;
+    padding: 13px;
+    text-transform: uppercase;
+    color: #fff;
+    border: 0;
+    background-color: #FEC640;
+    font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+#mainNav .navbar-brand {
+    color: #fed136;
+    font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive;
+}
+
+#mainNav {
+    background-color: #022160;
+}
