@@ -16,6 +16,10 @@
     .screen{
         display: none;
     }
+
+    #template {
+        display: none;
+    }
 </style>
 
 <body>
@@ -28,7 +32,20 @@
           <button id="btnSearch">Search</button>
     </div>
     
-    <div class="container screen" id="results"></div>
+    <!--This serves as a TEMPLATE for search results so its hidden to start with-->
+    <div class="container screen" id="results" >
+
+        <div class="card" id="template">
+            <img class="card-img-top" src="" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Card title</h4>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
 
     
     <script
@@ -43,18 +60,30 @@
             crossorigin="anonymous"></script>
 
     <script>
-        // Built by LucyBot. www.lucybot.com
-
         function loadResults(result){
             console.log('we got this from the user query: ' + $('#query').val());
             console.log(result);
 
             $("#results").append('We have received ' + result.num_results + ' results' +
                                 ' from searching: ' + $('#query').val() + '<br><br>');
+
+            var curID = 0;
             $.each(result.results, function(i,v){
-                $("#results").append(v.display_title + '\t-\t(' + v.opening_date + ')'+ '<br>');
+
+
+                //$("#results").append(v.display_title + '\t-\t(' + v.opening_date + ')'+ '<br>');
+                $( "#template" ).clone().attr('id', 'card' + curID).appendTo( "#results");
+
+                if(v.multimedia != null)
+                    $("#card" + curID + " .card-img-top").attr('src', v.multimedia.src);
+                $("#card" + curID + " h4").text(v.display_title);
+                $("#card" + curID + " p").html(v.summary_short);
+                $("#card" + curID + " small").text("Last updated: " + v.date_updated);
+
+                curID = curID + 1;
             })
         }
+
 
         function doSearch(){
                 //$( '#results' ).empty();
