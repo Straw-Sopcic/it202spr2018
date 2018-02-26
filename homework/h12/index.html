@@ -12,7 +12,18 @@
           :root {
             --mdc-theme-primary: #0e4ead;
           }
+
+        @import "@material/mdc-button/mixins";
+        .mdc-button.mdc-button--raised {
+            @include mdc-button-filled-accessible(#FF9800);
+        }
+
+          #greeting-form > button {
+            margin-top: 8px;
+          }
       </style>
+
+
   </head>
   <body class="mdc-typography">
     <main>
