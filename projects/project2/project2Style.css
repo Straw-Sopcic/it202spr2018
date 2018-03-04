@@ -1,0 +1,53 @@
+
+
+/***********NAV BAR STYLES*********/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li button {
+    display: block;
+    color: white;
+    background:#4CAF50;
+    text-align: center;
+    padding: 5px 6px;
+    border-color:#333;
+    border-bottom-width: 9px;
+    border-top-width: 9px;
+    border-right-width: 10px;
+    border-left-width: 10px;
+    border-radius: 25px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+li button:hover:not(.active){
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+button{
+    background-color:#333;
+}
