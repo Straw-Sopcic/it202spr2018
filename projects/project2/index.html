@@ -11,7 +11,11 @@
 
         <!--CUSTOM FONTS-->
         <link href="https://fonts.googleapis.com/css?family=Sarina" rel="stylesheet">
+        <link href="themify-icons.css"
+              type="text/css"
+              rel="stylesheet"/>
         <!--font-family: 'Sarina', cursive;-->
+
         <!--STYLE SHEETS-->
         <link href = "project2Style.css"
 		  type = "text/css"
@@ -25,11 +29,23 @@
 
     <body>
         <ul>
-          <li><a class="active" href="#home">About</a></li>
-          <li><button href="#news">News</button></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#about">About</a></li>
+            <li><a class="active navList_a" id="mainTitle" href="">psSearch</a></li>
+            <li class="customDropDown">
+                <a href="#" class="dropbtn">Dropdown <span class="ti-angle-right" id="arrowIcon"> </span></a>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </li>
+            <li><button href="" class="searchButton">Search</button></li>
+<!--
+            <li><a href="" class="navList_a">Contact</a></li>
+            <li><a href="" class="navList_a">About</a></li>
+-->
         </ul>
+
+
 
         <script
               src="http://code.jquery.com/jquery-3.3.1.min.js"
@@ -41,6 +57,22 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
                 integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
                 crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function(){
+                $(".customDropDown").mouseenter(function(){
+                    $("#arrowIcon").removeClass("ti-angle-right");
+                    $("#arrowIcon").addClass("ti-angle-down");
+                });
+
+                 $(".customDropDown").mouseleave(function(){
+                     $("#arrowIcon").removeClass("ti-angle-down");
+                    $("#arrowIcon").addClass("ti-angle-right");
+                });
+
+            });
+
+        </script>
 
     </body>
 </html>
