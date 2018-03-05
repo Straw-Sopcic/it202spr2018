@@ -1,22 +1,103 @@
 
 
+/********GEN SCREEN STYLING********/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .col-m-1 {width: 8.33%;}
+    .col-m-2 {width: 16.66%;}
+    .col-m-3 {width: 25%;}
+    .col-m-4 {width: 33.33%;}
+    .col-m-5 {width: 41.66%;}
+    .col-m-6 {width: 50%;}
+    .col-m-7 {width: 58.33%;}
+    .col-m-8 {width: 66.66%;}
+    .col-m-9 {width: 75%;}
+    .col-m-10 {width: 83.33%;}
+    .col-m-11 {width: 91.66%;}
+    .col-m-12 {width: 100%;}
+}
+
+/* For desktop: */
+@media only screen and (min-width: 768px) {
+    .col-L-1 {width: 8.33%;}
+    .col-L-2 {width: 16.66%;}
+    .col-L-3 {width: 25%;}
+    .col-L-4 {width: 33.33%;}
+    .col-L-5 {width: 41.66%;}
+    .col-L-6 {width: 50%;}
+    .col-L-7 {width: 58.33%;}
+    .col-L-8 {width: 66.66%;}
+    .col-L-9 {width: 75%;}
+    .col-L-10 {width: 83.33%;}
+    .col-L-11 {width: 91.66%;}
+    .col-L-12 {width: 100%;}
+}
+
+/* For mobile: */
+@media only screen and (max-width: 599px) {
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+}
+
+@media screen and (max-width: 599px) {
+  #compNav { display: none; }  /* show it on small screens */
+    #phoneNav { display: block; }
+}
+
+@media screen and (min-width: 600px) {
+    #compNav { display: block;}
+  #phoneNav { display: none; }   /* hide it elsewhere */
+}
+
+
+
 /***********NAV BAR STYLES*********/
 
 p {
     margin = 0px;
     margin-bottom: 0px;
 }
+
 ul {
     list-style-type: none;
-    margin: 0;
+    margin: 0px;
+    margin-bottom: 0px;
     padding: 0;
     overflow: hidden;
     background-color: #333;
 }
 
 li {
-    float: left;
+    float:left;
 }
+
 
 #mainTitle{
     font-family: 'Sarina', cursive;
@@ -24,8 +105,16 @@ li {
     padding: 11px 16px;
 }
 
+#mainTitleMobile{
+    font-family: 'Sarina', cursive;
+    font-size: 20px;
+    text-align: center;
+    padding: 11px 16px;
+    width:100%;
+}
 
-li a, li p {
+
+li a, li p, p {
     display: inline-block;
     color: white;
     text-align: center;
@@ -67,6 +156,9 @@ button {
 }
 
 
+
+
+
 /****************DROPDOWN SELECT SETUP*************/
 /* Style The Dropdown Button */
 
@@ -83,7 +175,7 @@ li.customDropDown {
     z-index: 1;
 }
 
-.dropdown-content a, p {
+.dropdown-content a, p, option {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -91,7 +183,7 @@ li.customDropDown {
     text-align: left;
 }
 
-.dropdown-content a:hover, p:hover{background-color: #f1f1f1}
+.dropdown-content a:hover, p:hover, option:hover{background-color: #f1f1f1}
 
 .customDropDown:hover .dropdown-content {
     display: block;
@@ -99,6 +191,10 @@ li.customDropDown {
 
 .customDropDown {
     position: inherit;
+}
+
+select {
+    min-width: 160px;
 }
 
 /*******ICON STUFF*******/

@@ -17,19 +17,21 @@
         <!--font-family: 'Sarina', cursive;-->
 
         <!--STYLE SHEETS-->
-        <link href = "project2Style.css"
-		  type = "text/css"
-		  rel = "stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
               integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
               crossorigin="anonymous">
+        <link href = "project2Style.css"
+		  type = "text/css"
+		  rel = "stylesheet" />
     </head>
 
 
 
     <body>
+
+        <div id="compNav">
         <ul>
-            <li><a class="active navList_a" id="mainTitle" href="">psSearch</a></li>
+            <li ><a class="active" id="mainTitle" href="">psSearch</a></li>
             <li class="customDropDown">
                 <a href="#" class="dropbtn">Public School Search <span class="ti-angle-right" id="arrowIcon"> </span></a>
                 <div class="dropdown-content">
@@ -40,12 +42,32 @@
                     </select>
                 </div>
             </li>
-            <li><button href="" class="searchButton">Search</button></li>
-<!--
-            <li><a href="" class="navList_a">Contact</a></li>
-            <li><a href="" class="navList_a">About</a></li>
--->
+            <li style="float:right;"><button href="" class="searchButton" >Search</button></li>
         </ul>
+        </div>
+
+        <div id="phoneNav">
+            <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
+                <p class="active" id="mainTitleMobile" href="">psSearch</p>
+            </div>
+            <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
+            <ul>
+            <li class="customDropDown">
+                <a href="#" class="dropbtn">Public School Search <span class="ti-angle-right" id="arrowIcon"> </span></a>
+                <div class="dropdown-content">
+                    <select multiple>
+                        <option href="#">Link 1</option>
+                        <option href="#">Link 2</option>
+                        <option href="#">Link 3</option>
+                    </select>
+                </div>
+            </li>
+            <li style="float:right;"><button href="" class="searchButton" >Search</button></li>
+        </ul>
+                </div>
+        </div>
+
+
 
 
 
