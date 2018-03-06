@@ -85,8 +85,12 @@
                 crossorigin="anonymous"></script>
 
         <script>
-            var searchParams= [];
+            var searchParams = [];
             var baseLink = 'https://data.cityofchicago.org/resource/76dk-7ieb.json?$where=school_type IN (';
+            var iconLinksBase = 'icons/open-book';
+            var iconLinkMap = {};
+            var map;
+            var markerHolder = [];
 
             // Create a <script> tag and set the USGS URL as the source.
             var script = document.createElement('script');
@@ -94,22 +98,36 @@
             function getHMap(){
                 baseLink = 'https://data.cityofchicago.org/resource/76dk-7ieb.json?$where=school_type IN (';
                 $.each(searchParams, function(i,v){ //populate link with needed params.
-                          baseLink = baseLink + '\'' + v + '\'';
+                        if(i >0)
+                            baseLink = baseLink + ',';
+                        baseLink = baseLink + '\'' + v + '\'';
+                        iconLinkMap[v] = iconLinksBase + (i + 1) + '.png';
                       });
                 baseLink = baseLink + ')';
+                console.log(baseLink);
+                console.log(iconLinkMap);
+
+                for (i = 0;  i <  markerHolder.length;  i++) {
+                  markerHolder[i].setMap(null);
+                }
 
                 $.get(baseLink)
                   .done( function(response){
                      console.log(searchParams);
-                     eqfeed_callback(response);
+//                     eqfeed_callback(response);
 
-                    $( "#results" ).empty();
+                     $( "#results" ).empty();
                       $.each(response, function(i,v){
                           $("#results").append('<h4 style="font-size:10px;"><b>Name:</b> ' + v.long_name + '\t-\t<b>Address:</b> ' +
                                 v.address + '</h4>');
-
+                          var tmpPosition = new google.maps.LatLng(v.school_latitude, v.school_longitude);
+                          var marker = new google.maps.Marker({
+                                position: tmpPosition,
+                                icon: iconLinkMap[v.school_type],
+                                map: map
+                              });
+                          markerHolder.push(marker);
                       });
-
                   })
             }
 
@@ -155,8 +173,9 @@
                 });
 
                 $( "#btn2" ).click(function() {
-                    $('sel2 > option').each(function () {
-                       searchParams= [];
+                    console.log("hit button #2!!")
+                    searchParams= [];
+                    $('#sel2 > option').each(function () {
                        console.log(this.selected,this.value);
                        if(this.selected){
                             searchParams.push(this.value);
@@ -168,16 +187,14 @@
             });
 
             /****************Map Code********/
-
-
             function initMap() {
-                var uluru = {lat: -25.363, lng: 131.044};
-                var map = new google.maps.Map(document.getElementById('map'), {
+                var chicago = {lat: 41.8781, lng: -87.6298};
+                map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 4,
-                  center: uluru
+                  center: chicago
                 });
                 var marker = new google.maps.Marker({
-                  position: uluru,
+                  position: chicago,
                   map: map
                 });
             }
@@ -186,12 +203,6 @@
             function eqfeed_callback(results) {
               console.log(results);
               var heatmapData = [];
-             $.each(results, function(i,v){
-                 if(v.hasOwnProperty("latitude") && v.hasOwnProperty("longitude")){
-                        var latLng = new google.maps.LatLng(parseFloat(v.school_latitude), parseFloat(v.school_longitude));
-                        heatmapData.push(latLng);
-                 }
-             });
 
             }
     </script>
