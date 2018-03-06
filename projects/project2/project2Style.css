@@ -155,10 +155,6 @@ button {
     background-color:#333;
 }
 
-
-
-
-
 /****************DROPDOWN SELECT SETUP*************/
 /* Style The Dropdown Button */
 
@@ -204,4 +200,10 @@ select {
     float: left;
     position: relative;
     text-align: left;
+}
+
+
+/*******MAP STUFF**********/
+#map {
+    height: 100%;
 }

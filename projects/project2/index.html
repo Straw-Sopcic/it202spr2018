@@ -31,9 +31,9 @@
 
         <div id="compNav">
         <ul>
-            <li ><a class="active" id="mainTitle" href="">psSearch</a></li>
+            <li ><p class="active" id="mainTitle" >psSearch</p></li>
             <li class="customDropDown">
-                <a href="#" class="dropbtn">Public School Search <span class="arrowIcon ti-angle-right" > </span></a>
+                <p class="dropbtn">Public School Search <span class="arrowIcon ti-angle-right" > </span></p>
                 <div class="dropdown-content">
                     <select class="dropList" id="sel1" multiple>
 
@@ -51,7 +51,7 @@
             <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
             <ul>
             <li class="customDropDown">
-                <a href="#" class="dropbtn">Public School Search <span class="ti-angle-right arrowIcon" > </span></a>
+                <p class="dropbtn">Public School Search <span class="ti-angle-right arrowIcon" > </span></p>
                 <div class="dropdown-content">
                     <select class="dropList" id="sel2" multiple>
 
@@ -67,6 +67,8 @@
         </div>
 
         <div id="map"></div>
+
+
         <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
 
@@ -84,12 +86,19 @@
 
         <script>
             var searchParams= [];
+            var baseLink = 'https://data.cityofchicago.org/resource/76dk-7ieb.json?$where=school_type IN (';
 
             // Create a <script> tag and set the USGS URL as the source.
             var script = document.createElement('script');
 
             function getHMap(){
-                $.get('https://data.cityofchicago.org/resource/76dk-7ieb.json?$where=school_type IN (\'Career academy\')')
+                baseLink = 'https://data.cityofchicago.org/resource/76dk-7ieb.json?$where=school_type IN (';
+                $.each(searchParams, function(i,v){ //populate link with needed params.
+                          baseLink = baseLink + '\'' + v + '\'';
+                      });
+                baseLink = baseLink + ')';
+
+                $.get(baseLink)
                   .done( function(response){
                      console.log(searchParams);
                      eqfeed_callback(response);
@@ -187,7 +196,7 @@
             }
     </script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3XToRNEGfSvyk0bIbyi-GXwdjuVQGkZQ&libraries=visualization&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3XToRNEGfSvyk0bIbyi-GXwdjuVQGkZQ&callback=initMap">
     </script>
     </body>
 </html>
