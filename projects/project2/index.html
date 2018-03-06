@@ -67,7 +67,7 @@
         </div>
 
         <div id="map"></div>
-
+        <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
 
 
@@ -84,15 +84,6 @@
 
         <script>
             var searchParams= [];
-            var myMap,heatMap;
-
-            function initMap() {
-                myMap = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 12,
-                  center: {lat: 41.8781, lng: -87.6298},
-                  mapTypeId: 'satellite'
-                });
-            }
 
             // Create a <script> tag and set the USGS URL as the source.
             var script = document.createElement('script');
@@ -100,16 +91,18 @@
             function getHMap(){
                 $.get('https://data.cityofchicago.org/resource/76dk-7ieb.json?$where=school_type IN (\'Career academy\')')
                   .done( function(response){
-                     console.log(response);
-                     eqfeed_callback(response)
+                     console.log(searchParams);
+                     eqfeed_callback(response);
+
+                    $( "#results" ).empty();
                       $.each(response, function(i,v){
-                          $("#results").append('<h4>Name:' + v.long_name + '\t-\tAddress: ' +
+                          $("#results").append('<h4 style="font-size:10px;"><b>Name:</b> ' + v.long_name + '\t-\t<b>Address:</b> ' +
                                 v.address + '</h4>');
+
                       });
 
                   })
             }
-
 
             function getRandomColor() {
                   var letters = '0123456789ABCDEF';
@@ -166,58 +159,32 @@
             });
 
             /****************Map Code********/
-                    function toggleHeatmap() {
-            heatMap.setMap(heatMap.getMap() ? null : myMap);
-        }
 
 
-
-      function changeGradient() {
-        var gradient = [
-          'rgba(0, 255, 255, 0)',
-          'rgba(0, 255, 255, 1)',
-          'rgba(0, 191, 255, 1)',
-          'rgba(0, 127, 255, 1)',
-          'rgba(0, 63, 255, 1)',
-          'rgba(0, 0, 255, 1)',
-          'rgba(0, 0, 223, 1)',
-          'rgba(0, 0, 191, 1)',
-          'rgba(0, 0, 159, 1)',
-          'rgba(0, 0, 127, 1)',
-          'rgba(63, 0, 91, 1)',
-          'rgba(127, 0, 63, 1)',
-          'rgba(191, 0, 31, 1)',
-          'rgba(255, 0, 0, 1)'
-        ]
-        heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-      }
-
-      function changeRadius() {
-        heatmap.set('radius', heatmap.get('radius') ? null : 20);
-      }
-
-      function changeOpacity() {
-        heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-      }
+            function initMap() {
+                var uluru = {lat: -25.363, lng: 131.044};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 4,
+                  center: uluru
+                });
+                var marker = new google.maps.Marker({
+                  position: uluru,
+                  map: map
+                });
+            }
 
 
-      function eqfeed_callback(results) {
-          console.log(results);
-          var heatmapData = [];
-         $.each(results, function(i,v){
-             if(v.hasOwnProperty("latitude") && v.hasOwnProperty("longitude")){
-                    var latLng = new google.maps.LatLng(parseFloat(v.school_latitude), parseFloat(v.school_longitude));
-                    heatmapData.push(latLng);
-             }
-         });
+            function eqfeed_callback(results) {
+              console.log(results);
+              var heatmapData = [];
+             $.each(results, function(i,v){
+                 if(v.hasOwnProperty("latitude") && v.hasOwnProperty("longitude")){
+                        var latLng = new google.maps.LatLng(parseFloat(v.school_latitude), parseFloat(v.school_longitude));
+                        heatmapData.push(latLng);
+                 }
+             });
 
-
-        heatMap = new google.maps.visualization.HeatmapLayer({
-          data: heatmapData,
-          map: myMap
-        });
-
-      }
+            }
     </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3XToRNEGfSvyk0bIbyi-GXwdjuVQGkZQ&libraries=visualization&callback=initMap">
