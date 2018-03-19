@@ -225,3 +225,11 @@ select {
 #mainTitle{
     display: block;
 }
+
+
+.btn-primary {
+    color: #fff;
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    display: none;
+}

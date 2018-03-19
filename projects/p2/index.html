@@ -73,6 +73,7 @@
             </div>
 
 
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="ScreenSwitch" onClick="toggle()">MAP / RESULTS</button>
             <div id="results"></div>
 
             <div id="map"></div>
@@ -153,6 +154,12 @@
                 $("#mainTitle > div").show();
                 $("#map").hide();
                 $("#results").hide();
+                $("#ScreenSwitch").hide();
+            }
+
+            function toggle(){
+                $("#map").toggle();
+                $("#results").toggle();
             }
 
             $(document).ready(function(){
@@ -178,6 +185,7 @@
                 $( "#btn1, #btn2" ).click(function(e) {
                     searchParams= [];
                     $("#map").show();
+                    $("#ScreenSwitch").show();
                     $("#mainTitle > div").hide();
                     var me = '#' + $(e.target).attr('id');
                     var sel = (me == btn1 ? '#sel1':'#sel2');
@@ -218,7 +226,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3XToRNEGfSvyk0bIbyi-GXwdjuVQGkZQ&callback=initMap">
     </script>
     </body>
-    <footer class="page-footer">
-        <div class="footer-copyright" style="font-family: Arial;">Icons made by <a style="color:black;" href="https://www.freepik.com" title="Freepik">Freepik</a> from <a style="color:black;" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a style="color:black;" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    <footer class="page-footer pt-4 mt-4">
+        <div class="footer-copyright py-3" style="font-family: Arial;">Icons made by <a style="color:black;" href="https://www.freepik.com" title="Freepik">Freepik</a> from <a style="color:black;" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a style="color:black;" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
     </footer>
 </html>
