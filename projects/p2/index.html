@@ -31,7 +31,7 @@
 
         <div id="compNav">
         <ul>
-            <li ><p class="active" id="mainTitle" >psSearch</p></li>
+            <li ><p class="active" id="mainTitle" onclick="reset()">psSearch</p></li>
             <li class="customDropDown">
                 <p class="dropbtn">Public School Search <span class="arrowIcon ti-angle-right" > </span></p>
                 <div class="dropdown-content">
@@ -46,31 +46,39 @@
 
         <div id="phoneNav">
             <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
-                <p class="active" id="mainTitleMobile" href="">psSearch</p>
+                <p class="active" id="mainTitleMobile" href="#" onclick="reset()">psSearch</p>
             </div>
             <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
-            <ul>
-            <li class="customDropDown">
-                <p class="dropbtn">Public School Search <span class="ti-angle-right arrowIcon" > </span></p>
-                <div class="dropdown-content">
-                    <select class="dropList" id="sel2" multiple>
-
-                    </select>
-                </div>
-            </li>
-            <li style="float:right;"><button href="" class="searchButton" id="btn2">Search</button></li>
-        </ul>
-                </div>
+                <ul>
+                    <li class="customDropDown">
+                        <p class="dropbtn">Public School Search <span class="ti-angle-right arrowIcon" > </span></p>
+                        <div class="dropdown-content">
+                            <select class="dropList" id="sel2" multiple></select>
+                        </div>
+                    </li>
+                    <li style="float:right;"><button href="" class="searchButton" id="btn2">Search</button></li>
+                </ul>
+            </div>
         </div>
 
-        <div class="container-fluid" id="results">
+        <div class="container-fluid">
+            <div class="row" id="mainTitle">
+                <div class="col-2"></div>
+
+                <div class=" col-sm-12 col-md-12 align-items-center">
+                    <h1 class="text-center">Simple School Search Tool</h1>
+                    <i class="text-center" style="font-family: Bookman;">Find out what schools are in the surrounding chicagoland area.</i>
+                </div>
+                <div class="col-2"></div>
+            </div>
+
+
+            <div id="results"></div>
+
+            <div id="map"></div>
+
+
         </div>
-
-        <div id="map"></div>
-
-
-        <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-
 
 
         <script
@@ -91,6 +99,8 @@
             var iconLinkMap = {};
             var map;
             var markerHolder = [];
+            var btn1 = "#btn1";
+            var btn2 = "#btn2";
 
             // Create a <script> tag and set the USGS URL as the source.
             var script = document.createElement('script');
@@ -114,7 +124,6 @@
                 $.get(baseLink)
                   .done( function(response){
                      console.log(searchParams);
-//                     eqfeed_callback(response);
 
                      $( "#results" ).empty();
                       $.each(response, function(i,v){
@@ -140,6 +149,12 @@
                   return color;
             }
 
+            function reset(){
+                $("#mainTitle > div").show();
+                $("#map").hide();
+                $("#results").hide();
+            }
+
             $(document).ready(function(){
                 $(".customDropDown").mouseenter(function(){
                     $(".arrowIcon").removeClass("ti-angle-right");
@@ -160,30 +175,23 @@
 
                   })
 
-                $( "#btn1" ).click(function() {
+                $( "#btn1, #btn2" ).click(function(e) {
                     searchParams= [];
-                    $('#sel1 > option').each(function () {
+                    $("#map").show();
+                    $("#mainTitle > div").hide();
+                    var me = '#' + $(e.target).attr('id');
+                    var sel = (me == btn1 ? '#sel1':'#sel2');
+
+                    $(sel + ' > option').each(function () {
                         console.log(this.selected,this.value);
                         if(this.selected){
                             searchParams.push(this.value);
                         }
-
                     });
+
                     getHMap();
                 });
 
-                $( "#btn2" ).click(function() {
-                    console.log("hit button #2!!")
-                    searchParams= [];
-                    $('#sel2 > option').each(function () {
-                       console.log(this.selected,this.value);
-                       if(this.selected){
-                            searchParams.push(this.value);
-                        }
-                    });
-                    getHMap();
-
-                });
             });
 
             /****************Map Code********/
@@ -210,4 +218,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3XToRNEGfSvyk0bIbyi-GXwdjuVQGkZQ&callback=initMap">
     </script>
     </body>
+    <footer class="page-footer">
+        <div class="footer-copyright" style="font-family: Arial;">Icons made by <a style="color:black;" href="https://www.freepik.com" title="Freepik">Freepik</a> from <a style="color:black;" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a style="color:black;" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </footer>
 </html>
