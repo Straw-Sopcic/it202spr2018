@@ -1,0 +1,85 @@
+<!--https://data.cityofchicago.org/resource/tt4n-kn4t.json-->
+
+<html lang="en">
+
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous">
+</head>
+
+
+
+
+
+    <style>
+
+    .screen{
+        display: none;
+    }
+
+    #template {
+        display: none;
+    }
+</style>
+
+
+
+<body>
+
+
+
+    <div class="container screen" id="results" >
+
+        <div class="card" id="template">
+            <img class="card-img-top" src="" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Card title</h4>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script
+          src="http://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+
+
+    <script>
+                //$( '#results' ).empty();
+
+        $(document).ready(function(){
+
+
+                $.get('https://data.cityofchicago.org/resource/tt4n-kn4t.json?department=CITY%20COUNCIL')
+                  .done( function(response){
+                      console.log(response);
+                      $.each(response, function(i,v){
+                          $("<h1 >" + v.school_type + "</h1>").appendTo("results");
+                      });
+
+                  })
+
+            });
+
+    </script>
+
+</body>
+
+
