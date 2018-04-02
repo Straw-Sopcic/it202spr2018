@@ -7,7 +7,7 @@
 
   </head>
   <body>
-    <canvas id="myCanvas" width="400" height="600"></canvas>
+    <canvas id="myCanvas" width="600" height="600"></canvas>
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -17,121 +17,160 @@
     <script>
       var c=document.getElementById("myCanvas");
       var ctx=c.getContext("2d");
+      var img = new Image();
+      img.src = 'background2.png';
 
-      var game = {lives: 3, score: 0};
-      var player = {x: 75, y:110 , color: "blue", radius: 25};
-      var harm = {x: c.width, y:100 , color: "red", radius: 25};
+      var game = {lives: 3, score: 0, level: 0};
+
+      var player = {x: 75, y:65 , color: "blue", radius: 25};
+      var playerImg = new Image();
+      playerImg.src = 'mosquito2.png';
+
+      var harm = {x: c.width, y:100 , color: "red", radius: 45};
+      var harmImg = new Image();
+      harmImg.src = 'hawk2.png';
+
       var benefit= {x: c.width, y:125 , color: "green", radius: 25};
+      var benefitImg = new Image();
+      benefitImg.src = 'benefit2.png';
+
+      var scoreDisplay;
+      var livesDisplay;
+      var lvl;
+
+      scoreDisplay = new component("15px", "Consolas", "white", 500, 20, "text");
+      livesDisplay = new component("15px", "Consolas", "white", 40, 20, "text");
+      lvl = new component("15px", "Consolas", "white", 275, 20, "text");
+
+      function component(width, height, color, x, y, type) {
+          this.type = type;
+          this.width = width;
+          this.height = height;
+          this.speedX = 0;
+          this.speedY = 0;
+          this.x = x;
+          this.y = y;
+          this.update = function() {
+            if (this.type == "text") {
+              ctx.font = this.width + " " + this.height;
+              ctx.fillStyle = color;
+              ctx.fillText(this.text, this.x, this.y);
+            } else {
+              ctx.fillStyle = color;
+              ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+          }
+        }
+
 
 
       function draw() {
-        ctx.clearRect(0,0,c.width,c.height);
+
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.drawImage(img, 0, 0);
+        // Red rectangle
+        ctx.fillStyle="#240038";
+        ctx.fillRect(0,0,600,40);
 
 
-        // draw harm
-        harm.x--;
-        benefit.x--
-
+        /************************* draw harm ********************/
+        harm.x -= game.level*2 + 1;
         if (harm.x <= 0) {
           harm.x = c.width;
+          harm.y = Math.floor((Math.random() * c.height) + 65)
         }
-        if (benefit.x <= 0) {
-          benefit.x = c.width;
-        }
-
-        ctx.fillStyle = harm.color;
-        ctx.beginPath();
-        ctx.arc(harm.x,harm.y,harm.radius,0,2*Math.PI);
-        ctx.fill();
-
-        ctx.fillStyle = benefit.color;
-        ctx.beginPath();
-        ctx.arc(benefit.x,benefit.y,benefit.radius,0,2*Math.PI);
-        ctx.fill();
-
-        // collision check, using code from
-        //   https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+//
+//        ctx.fillStyle = harm.color;
+//        ctx.beginPath();
+//        ctx.arc(harm.x,harm.y,harm.radius,0,2*Math.PI);
+//        ctx.fill();
+        ctx.drawImage(harmImg, harm.x-60, harm.y-40);
 
         var dx = player.x - harm.x;
         var dy = player.y - harm.y;
-
         var distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < player.radius + harm.radius) {
-            // collision detected!
-            console.log("collision");
-
+        if (distance < player.radius + harm.radius) { // HARM COLLISION detected!
             harm.x = c.width;   // reposition harm
+            harm.y = Math.floor((Math.random() * c.height) + 65);
             game.lives--;       // reduce lives
 
-            // TODO: handle game over condition
-
-
+            /*************** game over condition************/
+            if(game.lives == 0){
+                alert("YOU LOSE, ITS OK VIDEO GAMES ARE NOT FOR EVERYONE!");
+                document.location.reload();
+            }
             console.log(game);
         }
 
+        /*********************TODO:  draw benefit****************/
+        benefit.x--
+        if (benefit.x <= 0) {
+          benefit.x = c.width;
+          benefit.y = Math.floor((Math.random() * c.height) + 65);
+        }
+//        ctx.fillStyle = benefit.color;
+//        ctx.beginPath();
+//        ctx.arc(benefit.x,benefit.y,benefit.radius,0,2*Math.PI);
+//        ctx.fill();
+        ctx.drawImage(benefitImg, benefit.x-40, benefit.y-35);
 
-        // TODO:  draw benefit
+        dx = player.x - benefit.x;
+        dy = player.y - benefit.y;
+        distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < player.radius + benefit.radius) {    // BENEFIT collision detected!
+            benefit.x = c.width;   // reposition harm
+            benefit.y = Math.floor((Math.random() * c.height) + 65);
+            game.score += 1;       // reduce lives
+            console.log(game);
+            if(  game.score%5 == 0  ){
+                game.level += 1;
+            }
+        }
 
 
+        /***************** draw player****************/
+
+        ctx.drawImage(playerImg, player.x-30, player.y-30);
 
 
-
-
-        // draw player
-        ctx.fillStyle = player.color;
-        ctx.beginPath();
-        ctx.arc(player.x,player.y,player.radius,0,2*Math.PI);
-        ctx.fill();
-
-
-
-
-        // TODO:  draw score and lives
-
-
-
-
+        /***************** TODO:  draw score and lives************/
+        scoreDisplay.text="SCORE: " + game.score*100;
+        scoreDisplay.update();
+        livesDisplay.text="LIVES: " + game.lives;
+        livesDisplay.update();
+        lvl.text = "LEVEL: " + game.level;
+        lvl.update();
 
         requestAnimationFrame(draw);
       }
-
-
-
 
       draw();
 
       // TODO:  keyboard events to change player y coordinate
       $(document).keydown(function(e) {
-          console.log(e);
+          //console.log(e); //says which button was pressed...
           switch(e.which) {
               case 37: // left
-              break;
-
+                player.x-=10;
+                break;
               case 38: // up
-                player.y-=5;
-              break;
-
+                player.y-=10;
+                break;
               case 39: // right
-              break;
-
+                player.x+=10;
+                break;
               case 40: // down
-                player.y+=5;
-              break;
-
+                player.y+=10;
+                break;
+              case 32:
+                // TODO:  space bar to pause game
+                alert("Game Paused, press \'OK\' to continue...");
+                break;
               default: return; // exit this handler for other keys
           }
           e.preventDefault(); // prevent the default action (scroll / move caret)
       });
-
-
-
-
-
-      // TODO:  space bar to pause game
-
-
-
 
     </script>
   </body>
