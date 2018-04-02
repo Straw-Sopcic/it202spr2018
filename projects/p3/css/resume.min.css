@@ -3,3 +3,7 @@ body{font-family:'Open Sans',serif;padding-top:54px;color:#868e96}@media (min-wi
 #temp {
     display: none;
 }
+
+.card-group>.card:first-child {
+   border-left: 1;
+}

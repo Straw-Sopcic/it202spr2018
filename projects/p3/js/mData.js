@@ -1,19 +1,19 @@
 var Projects = [
     {
-        name:'FPGAAAAA',
-        photoLink:'img/tabPhoto.png',
-        photoAlt: 'photo description...',
-        pptLink:'https://www.slideshare.net/slideshow/embed_code/key/4PKJy7K512F1ht',
-        description :'just a long description describing the project',
-        relatedTech:'need to add all the related tech to this...'
+        name:'FPGA video game',
+        photoLink:'img/AlterCycloneiv.jpg',
+        photoAlt: 'cyclone chip',
+        pptLink:'https://www.slideshare.net/slideshow/embed_code/key/AwDAaM50bq5FVY',
+        description :'We created a controllable animation utilizing the speed and storage space of Altera\'s DE2-115 SRAM.',
+        relatedTech:'FPGA, System Verilog, Embedded Systems'
     },
     {
-        name:'FPGAAA2222',
+        name:'Tab Reader Music Generator',
         photoLink:'img/tabPhoto.png',
-        photoAlt: 'photo description...',
+        photoAlt: 'guitar tabs',
         pptLink:'https://www.slideshare.net/slideshow/embed_code/key/4PKJy7K512F1ht',
-        description :'just a long description describing the project',
-        relatedTech:'need to add all the related tech to this...'
+        description :'Created an app with a partner that converted text guitar tabs to music using an algorithm that generates guitar music from scratch.',
+        relatedTech:'Android Development, C++, DSP'
     }
 ];
 
