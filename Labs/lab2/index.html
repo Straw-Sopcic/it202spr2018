@@ -69,9 +69,6 @@
 
             var curID = 0;
             $.each(result.results, function(i,v){
-
-
-                //$("#results").append(v.display_title + '\t-\t(' + v.opening_date + ')'+ '<br>');
                 $( "#template" ).clone().attr('id', 'card' + curID).appendTo( "#results");
 
                 if(v.multimedia != null)
