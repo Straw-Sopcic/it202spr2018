@@ -17,12 +17,15 @@ var Projects = [
     }
 ];
 
-var curID = 0;
+
 
 function clone(){
+    var curID = 0;
+    console.log('calling function now!!!');
     $.each(Projects, function(i,v){
+        console.log(v.name);
         var ID = 'card' + curID;
-        $( "#temp" ).clone().attr('id', ID).appendTo( ".card-group");
+        $( "#temp" ).clone().attr('id', 'card' + curID).appendTo( ".card-group");
         ID = '#' + ID;
 
         $(ID + " img").attr('src', v.photoLink);
