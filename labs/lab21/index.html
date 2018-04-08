@@ -19,6 +19,14 @@
        <span id="rotation-rate-gamma" class="value">null</span>,
        <span id="rotation-rate-alpha" class="value">null</span>)
     </p>
+     <p>
+       Coordinates:
+       (<span id="beta" class="value">null</span>,
+       <span id="gamma" class="value">null</span>,
+       <span id="alpha" class="value">null</span>)
+       <br />
+       Position absolute? <span id="is-absolute" class="value">unavailable</span>
+    </p>
     <canvas id="canvas"></canvas>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -85,6 +93,9 @@
                                 player.x += player.speed;
 //                       'rotateY(' + event.gamma + 'deg) ' +
 //                       'rotateZ(' + event.alpha + 'deg)';
+               document.getElementById('beta').innerHTML = Math.round(event.beta);
+               document.getElementById('gamma').innerHTML = Math.round(event.gamma);
+               document.getElementById('alpha').innerHTML = Math.round(event.alpha);
             });
 
 
