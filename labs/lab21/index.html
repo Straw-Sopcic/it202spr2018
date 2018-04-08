@@ -25,7 +25,7 @@
        <span id="gamma" class="value">null</span>,
        <span id="alpha" class="value">null</span>)
        <br />
-       Position absolute? <span id="is-absolute" class="value">unavailable</span>
+       Position absolute? <span id="is-absolute" class="value">1.1</span>
     </p>
     <canvas id="canvas"></canvas>
 
@@ -64,7 +64,7 @@
                     player.x = c.width/2;
                     player.y = c.height/2;
                     //TODO:  add vibration upon collision
-                    window.navigator.vibrate(200);
+                    //window.navigator.vibrate(200);
                     //TODO:  add speechSynthesis notification of collision
                     var msg = new SpeechSynthesisUtterance('Collision');
                     window.speechSynthesis.speak(msg);
