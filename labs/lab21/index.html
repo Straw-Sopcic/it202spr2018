@@ -72,7 +72,14 @@
             //   is to output the values to the screen so that you understand what's happening
 
             //https://developers.google.com/web/fundamentals/native-hardware/device-orientation/
-
+            window.addEventListener('deviceorientation', function(event) {
+                        if( event.beta > 10)
+                                player.x -= player.speed;
+                        if( event.beta < -10)
+                                player.x += player.speed;
+//                       'rotateY(' + event.gamma + 'deg) ' +
+//                       'rotateZ(' + event.alpha + 'deg)';
+            }
 
 
             $(document).keydown(function(e) {
