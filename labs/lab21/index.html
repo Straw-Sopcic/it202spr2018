@@ -52,7 +52,8 @@
                     //TODO:  add vibration upon collision
 
                     //TODO:  add speechSynthesis notification of collision
-
+                    var msg = new SpeechSynthesisUtterance('Collision');
+                    window.speechSynthesis.speak(msg);
                 }
 
 
