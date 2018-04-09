@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+
+    <video id="player" controls autoplay></video>
+    <button id="capture">Capture</button>
+    <canvas id="canvas" width=320 height=240></canvas>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+      const player = document.getElementById('player');
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const captureButton = document.getElementById('capture');
+
+      const constraints = {
+        video: true,
+      };
+
+      captureButton.addEventListener('click', () => {
+        // Draw the video frame to the canvas.
+        context.drawImage(player, 0, 0, canvas.width, canvas.height);
+      });
+        //API key: AIzaSyBYWZNvWrW6MZHtzEHw0SyrkTjiExddERU
+        //POST https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBYWZNvWrW6MZHtzEHw0SyrkTjiExddERU
+      // Attach the video stream to the video element and autoplay.
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then((stream) => {
+          player.srcObject = stream;
+        });
+
+        function getImageData(){
+            requestBody = {
+                "requests":[
+                {
+                  "image":{
+                    "content":"/9j/7QBEUGhvdG9...image contents...eYxxxzj/Coa6Bax//Z"
+                  },
+                  "features":[
+                    {
+                      "type":"LABEL_DETECTION",
+                      "maxResults":1
+                    }
+                  ]
+                }
+                ]
+            }
+
+            $.ajax({
+                method: "POST",
+                contentType: "application/json",
+                url: visionApiEndpoint + '?key=AIzaSyBYWZNvWrW6MZHtzEHw0SyrkTjiExddERU',
+                data: JSON.stringify(requestBody)
+            })
+        }
+
+    </script>
+</html>
