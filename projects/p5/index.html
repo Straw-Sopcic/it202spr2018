@@ -5,7 +5,7 @@
     </head>
 
     <video id="player" controls autoplay></video>
-    <button id="capture">Capture</button>
+    <button id="capture" onclick="getImageData()">Capture</button>
     <canvas id="canvas" width=320 height=240></canvas>
 
     <script
@@ -21,6 +21,7 @@
       const context = canvas.getContext('2d');
       const captureButton = document.getElementById('capture');
       const visionApiEndpoint = 'https://vision.googleapis.com/v1/images:annotate'
+      var requestBody;
 
       const constraints = {
         video: true,
@@ -43,7 +44,7 @@
                 "requests":[
                 {
                   "image":{
-                    "content": canvas.toJSON();
+                    "content": canvas.toDataURL().split(',')
                   },
                   "features":[
                     {
