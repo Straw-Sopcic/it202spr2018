@@ -78,12 +78,6 @@
                 window.requestAnimationFrame(draw);
             }
 
-
-            function hideButton() {
-                $("#startBtn").hide();
-                window.speechSynthesis.speak("");
-            }
-
             draw();
 
 
@@ -131,9 +125,13 @@
                 }
                 e.preventDefault(); // prevent the default action (scroll / move caret)
             });
-
-
         });
+
+
+        function hideButton() {
+                $("#startBtn").hide();
+                window.speechSynthesis.speak(new SpeechSynthesisUtterance('start'));
+            }
     </script>
 
 
