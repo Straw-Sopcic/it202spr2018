@@ -80,23 +80,23 @@
 
 
 
-            //TODO:  add player control on mobile via device motion API
+
 
             // as part of your development process, the first step
             //   is to output the values to the screen so that you understand what's happening
 
             //https://developers.google.com/web/fundamentals/native-hardware/device-orientation/
+            //TODO:  add player control on mobile via device motion API
             window.addEventListener('deviceorientation', function(event) {
                         if( event.beta > 10)
-                                player.y -= player.speed;
-                        if( event.beta < -10)
                                 player.y += player.speed;
+                        if( event.beta < -10)
+                                player.y -= player.speed;
                         if( event.gamma > 10)
                                 player.x += player.speed;
                         if( event.gamma < -10)
                                 player.x -= player.speed;
-//                       'rotateY(' + event.gamma + 'deg) ' +
-//                       'rotateZ(' + event.alpha + 'deg)';
+
                document.getElementById('beta').innerHTML = Math.round(event.beta);
                document.getElementById('gamma').innerHTML = Math.round(event.gamma);
                document.getElementById('alpha').innerHTML = Math.round(event.alpha);
