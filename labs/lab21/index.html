@@ -60,7 +60,9 @@
                     player.x = c.width/2;
                     player.y = c.height/2;
                     //TODO:  add vibration upon collision
-                    //window.navigator.vibrate(200);
+                    if ("vibrate" in navigator) {
+	                       window.navigator.vibrate(200);
+                    }
 
                     //TODO:  add speechSynthesis notification of collision
                     var msg = new SpeechSynthesisUtterance('Collision');
