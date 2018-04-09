@@ -20,6 +20,7 @@
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
       const captureButton = document.getElementById('capture');
+      const visionApiEndpoint = 'https://vision.googleapis.com/v1/images:annotate'
 
       const constraints = {
         video: true,
@@ -42,7 +43,7 @@
                 "requests":[
                 {
                   "image":{
-                    "content":"/9j/7QBEUGhvdG9...image contents...eYxxxzj/Coa6Bax//Z"
+                    "content": canvas.toJSON();
                   },
                   "features":[
                     {
@@ -59,7 +60,10 @@
                 contentType: "application/json",
                 url: visionApiEndpoint + '?key=AIzaSyBYWZNvWrW6MZHtzEHw0SyrkTjiExddERU',
                 data: JSON.stringify(requestBody)
+            }).done(function response(response){
+                console.log(response);
             })
+
         }
 
     </script>
