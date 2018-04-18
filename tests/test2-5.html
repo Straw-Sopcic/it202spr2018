@@ -169,14 +169,14 @@
                 // secondary text
                 secondaryText = $("<span>").addClass("mdc-list-item__secondary-text");
                 secondaryText.text("Estimated diameter in meters: "
-                  + "dsfs"/*TODO:  display min estimated diameter in meters*/
+                  + v2.estimated_diameter.meters.estimated_diameter_min
                   + " to "
-                  + "jkljlk"/*TODO:  display max estimated diameter in meters )*/;
+                  + v2.estimated_diameter.meters.estimated_diameter_max);
                 clone.find(".mdc-list-item__text").append(secondaryText);
 
                 // link to nasa_jpl_url
 
-                //clone.find("a").attr("href", '#'/*TODO: set href to the nasa jpl url*/);
+                clone.find("a").attr("href", v2.nasa_jpl_url);
 
                 var separator = $("<li>").addClass("mdc-list-divider").attr("role","separator");
                 $("#resultList").append(separator);
