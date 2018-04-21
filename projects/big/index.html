@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PM - AMFG</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom fonts for this template -->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="device-mockups/device-mockups.css">
+
+
+    <!-- Custom styles for this template -->
+    <link href="css/new-age.css" rel="stylesheet">
+
+
+<!--    <script data-main="app" src="lib/require.js"></script>-->
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">eazyPM</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#download">Download</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#features">MAP</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead">
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="col-lg-7 my-auto">
+            <div class="header-content mx-auto">
+              <h1 class="mb-5">The simple way to get access to PM sensor Data.</h1>
+              <a href="#download" class="btn btn-outline btn-xl js-scroll-trigger">Get CSV data!</a>
+            </div>
+          </div>
+          <div class="col-lg-5 my-auto">
+
+              <img class="img-responsive" style="max-width:300px;" src="img/excelLogo.png" alt="Mountain View">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="download bg-primary text-center" id="download">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 mx-auto">
+            <h2 class="section-heading">Enter the date you would like data from!</h2>
+            <p>Rest easy, we will do the rest.</p>
+              <div class="container">
+              <form>
+                <div class="form-group row">
+                  <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg"></label>
+                  <div class="col-sm-12">
+                    <input type="text" style="text-align: center;" class="form-control form-control-lg" id="dateInput" placeholder="YYYY-MM-DD HH:mm:ss">
+                  </div>
+                </div>
+              </form>
+              </div>
+            <div class="badges">
+              <button type="button" id="csvBtn" class="btn btn-primary btn-lg"
+                                        style="background-color: #207245;
+                                        border-color: #207245;">Generate CSV</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>MAP TOOLS</h2>
+          <p class="text-muted">Its in the works!</p>
+          <hr>
+        </div>
+        <div class="row">
+
+          <div class="col-lg-8 my-auto">
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-content">
+        <div class="container">
+          <h2>contact us</h2>
+          <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Lets make it happen!</a>
+        </div>
+      </div>
+      <div class="overlay"></div>
+    </section>
+
+    <section class="contact bg-primary" id="contact">
+      <div class="container">
+        <h2>We
+<!--          <i class="fa fa-heart"></i>-->
+          new friends!</h2>
+        <ul class="list-inline list-social">
+          <li class="list-inline-item social-google-plus">
+            <a >
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>&copy; AMFGsites 2018. All Rights Reserved.</p>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Privacy</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Terms</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/new-age.min.js"></script>
+
+    <script src="papaparse.min.js"></script>
+
+<!--    <script src="https://unpkg.com/convert-json-to-csv"></script>-->
+
+      <script>
+
+
+
+
+
+            function ConvertToCSV(objArray) {
+                var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+                var str = '';
+                console.log('the lenght of the array is ' + array.length);
+                for (var i = 0; i < array.length; i++) {
+                    console.log('the lenght of the array is ' + array.length);
+                    var line = '';
+                    for (var index in array[i]) {
+                        if (line != '') line += ','
+
+                        line += array[i][index];
+                    }
+
+                    str += line + '\r\n';
+                }
+
+                return str;
+            }
+
+             $(document).ready(function(){
+                      var baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getDaysDelta&startTime='; //format: 2018-02-27 00:00:00
+                      $( "#csvBtn" ).click(function() {
+                          baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getDaysDelta&startTime=';
+                          baselink = baselink + $('#dateInput').val();
+                          console.log(baselink);
+
+                          $.get(baselink)
+                              .done( function(response){
+                                  console.log('Papa parse');
+                                  //console.log(response);
+
+                                    var json = $.parseJSON(response);
+                             // var jsonToCsv = require('convert-json-to-csv');
+                             // var arrayOfObjectsCsv = convertArrayOfObjects(inputJson, columnDefinitionArray);
+
+//                                    console.log(arrayOfObjectsCsv);
+                                    console.log(json);
+                                    var csv = Papa.unparse(response);
+
+                                    console.log("Unparse complete");
+                                    console.log(ConvertToCSV(json));
+
+                                    console.log('length of csv = ' + csv.length);
+//                                    if (csv.length > 300)
+//                                    {
+//                                        csv = csv.substr(0, 300);
+//                                        console.log("(Results truncated for brevity)");
+//                                    }
+
+                                    console.log(csv);
+
+                                   // var csv = JSON2CSV(json);
+                                    console.log('the csv file bro: ' + csv);
+                                    var downloadLink = document.createElement("a");
+                                    var blob = new Blob(["\ufeff", csv]);
+                                    var url = URL.createObjectURL(blob);
+                                    downloadLink.href = url;
+                                    downloadLink.download = "data.csv";
+
+                                    document.body.appendChild(downloadLink);
+                                    downloadLink.click();
+                                    document.body.removeChild(downloadLink);
+
+
+
+                              });
+                        });
+             });
+    </script>
+  </body>
+</html>
