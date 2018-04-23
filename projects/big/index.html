@@ -21,8 +21,10 @@
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
+
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="device-mockups/device-mockups.css">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.css">
 
 
     <!-- Custom styles for this template -->
@@ -33,6 +35,13 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.js"></script>
+      <script>
+         function play(){
+               var audio = document.getElementById("audio");
+               audio.play();
+            }
+      </script>
 
   </head>
 
@@ -99,7 +108,9 @@
               </form>
               </div>
             <div class="badges">
+              <audio id="audio" src="sounds/slow-spring-board-longer-tail.ogg" ></audio>
               <button type="button" id="csvBtn" class="btn btn-primary btn-lg"
+                                        onclick="play()"
                                         style="background-color: #207245;
                                         border-color: #207245;">Generate CSV</button>
             </div>
@@ -112,19 +123,34 @@
       <div class="container">
         <div class="section-heading text-center">
           <h2>MAP TOOLS</h2>
-          <p class="text-muted">Its in the works!</p>
+          <p class="text-muted">Basic visualization tools. Select your date:</p>
+            <div class="container">
+              <form>
+                <div class="form-group row">
+                  <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg"></label>
+                  <div class="col-sm-12">
+                    <input type="text" style="text-align: center;" name="date2" class="form-control form-control-lg" id="dateInput2" placeholder="YYYY-MM-DD HH:mm:ss">
+                      <script>
+                            $('#dateInput2').datetimepicker({ footer: true, modal: true , format: 'yyyy-mm-dd HH:MM:ss'});
+                      </script>
+                  </div>
+                </div>
+              </form>
+              </div>
           <hr>
-        </div>
-        <div class="row">
 
-          <div class="col-lg-8 my-auto">
-
-          </div>
+          <nav id="my-mdc-tab-bar" class="mdc-tab-bar">
+              <a id='pMap' class="mdc-tab mdc-tab--active" href="#one">Point Map</a>
+              <a id='hMap' class="mdc-tab" href="#two">Heat Map</a>
+              <span class="mdc-tab-bar__indicator"></span>
+           </nav>
+            <div id="map"></div>
+            <div id="hMap"></div>
         </div>
       </div>
     </section>
 
-    <section class="cta">
+    <section class="cta" id="contact">
       <div class="cta-content">
         <div class="container">
           <h2>contact us</h2>
@@ -134,10 +160,11 @@
       <div class="overlay"></div>
     </section>
 
+<!--
     <section class="contact bg-primary" id="contact">
       <div class="container">
         <h2>We
-<!--          <i class="fa fa-heart"></i>-->
+          <i class="fa fa-heart"></i>
           new friends!</h2>
         <ul class="list-inline list-social">
           <li class="list-inline-item social-google-plus">
@@ -148,6 +175,7 @@
         </ul>
       </div>
     </section>
+-->
 
     <footer>
       <div class="container">
@@ -177,6 +205,8 @@
     <script src="js/new-age.min.js"></script>
 ,
       <script>
+          var map;
+
             function ConvertToCSV(jsonObject) {
                 var str = '';
                 console.log('the lenght of the array is ' + jsonObject.length);
@@ -190,12 +220,42 @@
              }
 
 
+          function getPMap(){
+
+          }
+
+          $( "#pMap").click(function(e) {
+                getPMap();
+                    searchParams= [];
+                    $("#map").show();
+                    //TODO: add hide function...
+
+                    var baselink2 = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getDaysDelta&startTime=';
+                    baselink2 = baselink2 + $('#dateInput2').val();
+                    console.log(baselink2);
+
+                    $.get(baselink2)
+                          .done( function(response){
+                                var json = $.parseJSON(response);
+                                console.log(json);
+                        $.each(json.deltas, function(i,v){
+
+                                var tmpPosition = new google.maps.LatLng(v.latitude, v.longitude);
+                                var marker = new google.maps.Marker({
+                                        position: tmpPosition,
+                                        icon: getCircle(5),
+                                        map: map
+                                      });
+                                     });
+
+                            });
+                });
 
 
              $(document).ready(function(){
-                      var baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getDaysDelta&startTime='; //format: 2018-02-27 00:00:00
+                      var baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime='; //format: 2018-02-27 00:00:00
                       $( "#csvBtn" ).click(function() {
-                          baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getDaysDelta&startTime=';
+                          baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime=';
                           baselink = baselink + $('#dateInput').val();
                           console.log(baselink);
 
@@ -204,38 +264,61 @@
                                   console.log('Papa parse');
 
                                     var json = $.parseJSON(response);
-                                    console.log(response)
 
-                                    console.log(json.deltas);
+                                    console.log(json);
 
-                                    //var csv = ConvertToCSV(json)
-
-                                    var line = 'Timestamp,Delta,Latitude,Longitude\r\n';
-                                    $.each(json.deltas, function(i,v){
-                                        line += v.timestamp + ',' + v.Delta + ','+ v.latitude + ',' + v.longitude + '\r\n';
+                                    var line = 'Timestamp,frequency,Latitude,Longitude,deviceID\r\n';
+                                    $.each(json.data, function(i,v){
+                                        line += v.timestamp + ',' + v.frequency + ','+ v.latitude + ',' + v.longitude + ',' + v.deviceID + '\r\n';
                                      });
 
                                     console.log( line);
 
-
-
-                                   // var csv = JSON2CSV(json);
+                 /******************* CREATING CSV DOWNLOAD LINK *********************/
                                     console.log('the csv file bro: ' + line);
                                     var downloadLink = document.createElement("a");
                                     var blob = new Blob(["\ufeff", line]);
                                     var url = URL.createObjectURL(blob);
                                     downloadLink.href = url;
-                                    downloadLink.download = "data.csv";
 
+                                    downloadLink.download = "data.csv";
                                     document.body.appendChild(downloadLink);
                                     downloadLink.click();
                                     document.body.removeChild(downloadLink);
-
-
-
-                              });
-                        });
+                         });
+                      });
              });
+
+          /****************Map Code********/
+
+
+
+            function getCircle(magnitude) {
+              return {
+                  path: google.maps.SymbolPath.CIRCLE,
+                  fillColor: 'red',
+                  fillOpacity: .2,
+                  scale: Math.pow(2, magnitude) / 2,
+                  strokeColor: 'white',
+                  strokeWeight: .5
+              };
+            }
+
+            function initMap() {
+                var UIC = {lat: 41.8706, lng: -87.6510};
+                map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 15,
+                  center: UIC
+                });
+//                var marker = new google.maps.Marker({
+//                  position: UIC,
+//                  map: map
+//                });
+
+            }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3XToRNEGfSvyk0bIbyi-GXwdjuVQGkZQ&callback=initMap">
     </script>
   </body>
 </html>
