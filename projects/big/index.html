@@ -47,6 +47,23 @@
 
   <body id="page-top">
 
+
+    <div id="mainScreen">
+      <section class="features" id="features">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>WELCOME!</h2>
+          <p class="text-muted">Welcome to the PM2.5 site. We hope our tools will be helpful.</p>
+        <button type="button" id="homeBtn" class="btn btn-primary btn-lg" onclick="hidee()"
+                                        style="background-color: wheat;
+                                        border-color: black;">start</button>
+          <hr>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <div id="secondaryScreen">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
@@ -140,8 +157,8 @@
           <hr>
 
           <nav id="my-mdc-tab-bar" class="mdc-tab-bar">
-              <a id='pMap' class="mdc-tab mdc-tab--active" href="#one">Point Map</a>
-              <a id='hMap' class="mdc-tab" href="#two">Heat Map</a>
+              <a id='pMap' class="mdc-tab mdc-tab--active" href="#one">Point Map <i>(click)</i></a>
+<!--              <a id='hMap' class="mdc-tab" href="#two">Heat Map</a>-->
               <span class="mdc-tab-bar__indicator"></span>
            </nav>
             <div id="map"></div>
@@ -194,6 +211,7 @@
       </div>
     </footer>
 
+   </div>
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -251,9 +269,23 @@
                             });
                 });
 
+            function hidee(){
+                $("#mainScreen").hide();
+                $("#secondaryScreen").show();
+            }
+
 
              $(document).ready(function(){
+                        $("#mainScreen").show();
+                        $("#secondaryScreen").hide();
                       var baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime='; //format: 2018-02-27 00:00:00
+
+                      $("homeBtn").click(function(){
+                          console.log('clicked!!');
+                          $("#mainScreen").hide();
+                        $("#secondaryScreen").show();
+                      })
+
                       $( "#csvBtn" ).click(function() {
                           baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime=';
                           baselink = baselink + $('#dateInput').val();
