@@ -63,6 +63,21 @@
     </section>
     </div>
 
+    <div id="PopUpScreen">
+      <section class="features" id="features">
+      <div class="container">
+        <div class="section-heading text-center">
+          <h2>Easy right?!</h2>
+          <p class="text-muted" href="mailto:sopcic2@uic.edu"><a href="mailto:sopcic2@uic.edu">Email</a> us with any questions. </p>
+        <button type="button"  id="retBtn" class="btn btn-primary btn-lg" onclick="hidee()"
+                                        style="background-color: wheat;
+                                        border-color: black;"><i>return</i></button>
+          <hr>
+        </div>
+      </div>
+    </section>
+    </div>
+
     <div id="secondaryScreen">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -118,7 +133,10 @@
                   <div class="col-sm-12">
                     <input type="text" style="text-align: center;" name="date" class="form-control form-control-lg" id="dateInput" placeholder="YYYY-MM-DD HH:mm:ss">
                       <script>
-                            $('#dateInput').datetimepicker({ footer: true, modal: true , format: 'yyyy-mm-dd HH:MM:ss'});
+                            $('#dateInput').datetimepicker({ footer: true, modal: true , format: 'yyyy-mm-dd HH:MM:ss',
+                                                                change: function(e){
+                                                                    canGen();}
+                                                           });
                       </script>
                   </div>
                 </div>
@@ -148,7 +166,10 @@
                   <div class="col-sm-12">
                     <input type="text" style="text-align: center;" name="date2" class="form-control form-control-lg" id="dateInput2" placeholder="YYYY-MM-DD HH:mm:ss">
                       <script>
-                            $('#dateInput2').datetimepicker({ footer: true, modal: true , format: 'yyyy-mm-dd HH:MM:ss'});
+                            $('#dateInput2').datetimepicker({ footer: true, modal: true , format: 'yyyy-mm-dd HH:MM:ss',
+                                                                   change: function(e){
+                                                                       canVis();}
+                                                            });
                       </script>
                   </div>
                 </div>
@@ -157,7 +178,7 @@
           <hr>
 
           <nav id="my-mdc-tab-bar" class="mdc-tab-bar">
-              <a id='pMap' class="mdc-tab mdc-tab--active" href="#one">Point Map <i>(click)</i></a>
+              <a id='pMap' class="mdc-tab mdc-tab--active" href="#" disabled>Point Map <i>(click)</i></a>
 <!--              <a id='hMap' class="mdc-tab" href="#two">Heat Map</a>-->
               <span class="mdc-tab-bar__indicator"></span>
            </nav>
@@ -171,7 +192,7 @@
       <div class="cta-content">
         <div class="container">
           <h2>contact us</h2>
-          <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Lets make it happen!</a>
+          <a href="mailto:sopcic2@uic.edu" class="btn btn-outline btn-xl js-scroll-trigger">Lets make it happen!</a>
         </div>
       </div>
       <div class="overlay"></div>
@@ -221,9 +242,11 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/new-age.min.js"></script>
-,
+
       <script>
           var map;
+          var canVisualize = 0;
+          var canGenerateCSV = 0;
 
             function ConvertToCSV(jsonObject) {
                 var str = '';
@@ -238,12 +261,17 @@
              }
 
 
-          function getPMap(){
+          function canVis(){
+              canVisualize = 1;
+          }
 
+          function canGen(){
+              canGenerateCSV = 1;
           }
 
           $( "#pMap").click(function(e) {
-                getPMap();
+              if(canVisualize){
+                    //getPMap();
                     searchParams= [];
                     $("#map").show();
                     //TODO: add hide function...
@@ -267,7 +295,8 @@
                                      });
 
                             });
-                });
+                }
+            });
 
             function hidee(){
                 $("#mainScreen").hide();
@@ -276,48 +305,71 @@
 
 
              $(document).ready(function(){
+                        $('#my-mdc-tab-bar').disabled = true;
+                        $('#pMap').disabled = true;
                         $("#mainScreen").show();
                         $("#secondaryScreen").hide();
+                        $("#PopUpScreen").hide();
+
                       var baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime='; //format: 2018-02-27 00:00:00
 
-                      $("homeBtn").click(function(){
+                      $("#homeBtn").click(function(){
                           console.log('clicked!!');
                           $("#mainScreen").hide();
-                        $("#secondaryScreen").show();
+                          $("#PopUpScreen").hide();
+                          $("#secondaryScreen").show();
+                      })
+
+                      $("#retBtn").click(function(){
+                          console.log('clicked return btn!!');
+                          $("#PopUpScreen").hide();
+                          $("#mainScreen").hide();
+                          $("#secondaryScreen").show();
                       })
 
                       $( "#csvBtn" ).click(function() {
-                          baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime=';
-                          baselink = baselink + $('#dateInput').val();
-                          console.log(baselink);
+                          if(canGenerateCSV){
+                              baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime=';
+                              baselink = baselink + $('#dateInput').val();
+                              console.log(baselink);
 
-                          $.get(baselink)
-                              .done( function(response){
-                                  console.log('Papa parse');
+                              $.get(baselink)
+                                  .done( function(response){
+                                      console.log('Papa parse');
 
-                                    var json = $.parseJSON(response);
+                                        var json = $.parseJSON(response);
+                                        var count = 0;
+                                        console.log(json);
 
-                                    console.log(json);
+                                        var line = 'Timestamp,frequency,Latitude,Longitude,deviceID\r\n';
+                                        $.each(json.data, function(i,v){
+                                            count++;
+                                            line += v.timestamp + ',' + v.frequency + ','+ v.latitude + ',' + v.longitude + ',' + v.deviceID + '\r\n';
+                                         });
 
-                                    var line = 'Timestamp,frequency,Latitude,Longitude,deviceID\r\n';
-                                    $.each(json.data, function(i,v){
-                                        line += v.timestamp + ',' + v.frequency + ','+ v.latitude + ',' + v.longitude + ',' + v.deviceID + '\r\n';
-                                     });
+                                        console.log( line);
 
-                                    console.log( line);
+                     /******************* CREATING CSV DOWNLOAD LINK *********************/
+                                        if(count > 1){  //checking to make sure we have obtained data
+                                            $("#PopUpScreen").show();
+                                            $("#mainScreen").hide();
+                                            $("#secondaryScreen").hide();
 
-                 /******************* CREATING CSV DOWNLOAD LINK *********************/
-                                    console.log('the csv file bro: ' + line);
-                                    var downloadLink = document.createElement("a");
-                                    var blob = new Blob(["\ufeff", line]);
-                                    var url = URL.createObjectURL(blob);
-                                    downloadLink.href = url;
+                                            console.log('the csv file bro: ' + line);
+                                            var downloadLink = document.createElement("a");
+                                            var blob = new Blob(["\ufeff", line]);
+                                            var url = URL.createObjectURL(blob);
+                                            downloadLink.href = url;
 
-                                    downloadLink.download = "data.csv";
-                                    document.body.appendChild(downloadLink);
-                                    downloadLink.click();
-                                    document.body.removeChild(downloadLink);
-                         });
+                                            downloadLink.download = "data.csv";
+                                            document.body.appendChild(downloadLink);
+                                            downloadLink.click();
+                                            document.body.removeChild(downloadLink);
+                                        }else
+                                            alert('No data present from this date on, check an earlier date');
+                             });
+                          }
+
                       });
              });
 
