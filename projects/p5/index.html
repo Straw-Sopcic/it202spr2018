@@ -31,6 +31,7 @@
         // Draw the video frame to the canvas. dones
         context.drawImage(player, 0, 0, canvas.width, canvas.height);
           getImageData();
+          getFace();
       });
         //API key: AIzaSyBYWZNvWrW6MZHtzEHw0SyrkTjiExddERU
         //POST https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBYWZNvWrW6MZHtzEHw0SyrkTjiExddERU
@@ -39,6 +40,34 @@
         .then((stream) => {
           player.srcObject = stream;
         });
+
+          function getFace(){
+            requestBody = {
+                "requests":[
+                {
+                  "image":{
+                  "content": canvas.toDataURL().split(',')[1]
+                  },
+                  "features":[
+                    {
+                      "type":"FACE_DETECTION",
+                      "maxResults":25
+                    }
+                  ]
+                }
+                ]
+            }
+
+            $.ajax({
+                method: "POST",
+                contentType: "application/json",
+                url: visionApiEndpoint + '?key=AIzaSyBYWZNvWrW6MZHtzEHw0SyrkTjiExddERU',
+                data: JSON.stringify(requestBody)
+            }).done(function response(response){
+                console.log(response);
+            })
+
+        }
 
         function getImageData(){
             requestBody = {
