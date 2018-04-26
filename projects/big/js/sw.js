@@ -7,12 +7,7 @@ self.addEventListener('install', e => {
         `/`,
         `/index.html?timestamp=${timeStamp}`,
         `/index.js?timestamp=${timeStamp}`,
-        `/gulpfile.js?timestamp=${timeStamp}`,
-        `/img/?timestamp=${timeStamp}`,
-        `/scripts/main.min.js?timestamp=${timeStamp}`,
-        `/scripts/comlink.global.js?timestamp=${timeStamp}`,
-        `/scripts/messagechanneladapter.global.js?timestamp=${timeStamp}`,
-        `/sounds/airhorn.mp3?timestamp=${timeStamp}`
+        `/gulpfile.js?timestamp=${timeStamp}`
       ])
           .then(() => self.skipWaiting());
     })
