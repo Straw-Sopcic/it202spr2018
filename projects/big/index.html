@@ -331,7 +331,7 @@
                         $("#secondaryScreen").hide();
                         $("#PopUpScreen").hide();
 
-                      var baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime='; //format: 2018-02-27 00:00:00
+                      var baselink = 'https://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime='; //format: 2018-02-27 00:00:00
 
                       $("#homeBtn").click(function(){
                           console.log('clicked!!');
@@ -349,7 +349,7 @@
 
                       $( "#csvBtn" ).click(function() {
                           if(canGenerateCSV){
-                              baselink = 'http://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime=';
+                              baselink = 'https://sopcic2.people.uic.edu/HeroApi/v1/Api.php?apicall=getRawData&startTime=';
                               baselink = baselink + $('#dateInput').val();
                               console.log(baselink);
 
