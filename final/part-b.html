@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    </head>
+
+    <style>
+         #template {
+            display: none;
+        }
+    </style>
+
+    <body>
+
+        <div id="myForm">
+            <div class="radio">
+              <label><input type="radio" name="optradio">Mental Health Clinic</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">STI Specialty Clinic</label>
+            </div>
+            <div class="radio disabled">
+              <label><input type="radio" name="optradio">WIC Clinic</label>
+            </div>
+            <button onclick='getMap()'  class="btn btn-primary">Submit</button>
+      </div>
+
+        <div class="list-group" id='template'>
+          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start card" >
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1 sName">name</h5>
+              <small class="sClinic">clinic type</small>
+            </div>
+            <p class="mb-1 sAdd1" name="add1">address</p>
+            <p class="mb-1 sAdd2" name='add2'>address</p>
+            <p class="mb-1 sPhone" name='phone'>phone</p>
+            <small class = "sHrs" name='hours'>hours</small>
+          </a>
+        </div>
+
+        <div id='results'></div>
+
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+        <div id="googleMap" style="height:400px;width:100%;"></div>
+        <script>
+            function myMap() {
+                var myCenter = new google.maps.LatLng(41.878114, -87.629798);
+                var mapProp = {center:myCenter, zoom:12, scrollwheel:false, draggable:false, mapTypeId:google.maps.MapTypeId.ROADMAP};
+                var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+                var marker = new google.maps.Marker({position:myCenter});
+                marker.setMap(map);
+            }
+        </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3XToRNEGfSvyk0bIbyi-GXwdjuVQGkZQ&callback=myMap"></script>
+        <script>
+
+        function getMap(){
+            console.log($('input[name=optradio]:checked', '#myForm').parent('label').text());
+            var mType = $('input[name=optradio]:checked', '#myForm').parent('label').text()
+            baseLink = 'https://data.cityofchicago.org/resource/t57k-za2y.json?$where=clinic_type IN (\'' + mType + '\')';
+
+
+             $.get(baseLink)
+                  .done( function(response){
+                     console.log(response);
+
+
+                  var curID = 0;
+                $.each(response, function(i,v){
+                    $( "#template" ).clone().attr('id', 'card' + curID).appendTo( "#results");
+
+                    if(v.multimedia != null)
+                        $("#card" + curID + " .sName").text(v.site_name);
+                    $("#card" + curID + " .sAdd1").text(v.street_address);
+                    $("#card" + curID + " .sAdd2").text('Chicago, IL' + v.zip);
+                    $("#card" + curID + " .sPhone").text(v.phone_1);
+                    $("#card" + curID + " .sHrs").text(v.hours_of_operation);
+
+                    curID = curID + 1;
+                })
+
+//                     $( "#results" ).empty();
+//                      $.each(response, function(i,v){
+//                          $("#results").append('<h4 style="font-size:10px;"><b>Name:</b> ' + v.long_name + '\t-\t<b>Address:</b> ' +
+//                                v.address + '</h4>');
+//                          var tmpPosition = new google.maps.LatLng(v.school_latitude, v.school_longitude);
+//                          var marker = new google.maps.Marker({
+//                                position: tmpPosition,
+//                                icon: iconLinkMap[v.school_type],
+//                                map: map
+//                              });
+//                          markerHolder.push(marker);
+//                      });
+                  })
+        }
+
+        </script>
+    </body>
+</html>
