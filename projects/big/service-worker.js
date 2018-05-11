@@ -1,4 +1,4 @@
-var cacheName = 'PM-0-4';
+var cacheName = 'PM-0-5';
 
 var filesToCache = [
     '/',
