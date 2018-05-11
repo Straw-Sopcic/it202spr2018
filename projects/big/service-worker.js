@@ -1,4 +1,4 @@
-var cacheName = 'PM-0-2';
+var cacheName = 'PM-0-3';
 var filesToCache = [
     '/',
     '/index.html',
