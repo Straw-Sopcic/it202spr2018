@@ -52,10 +52,11 @@
 
         <div id="googleMap" style="height:400px;width:100%;"></div>
         <script>
+            var map;
             function myMap() {
                 var myCenter = new google.maps.LatLng(41.878114, -87.629798);
                 var mapProp = {center:myCenter, zoom:12, scrollwheel:false, draggable:false, mapTypeId:google.maps.MapTypeId.ROADMAP};
-                var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+                map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
                 var marker = new google.maps.Marker({position:myCenter});
                 marker.setMap(map);
             }
@@ -87,7 +88,25 @@
                     $("#card" + curID + " .sHrs").text(v.hours_of_operation);
 
                     curID = curID + 1;
+
+                    var contentString = v.site_name
+
+                     var infowindow = new google.maps.InfoWindow({
+                      content: contentString
+                    });
+
+                    var marker = new google.maps.Marker({
+                      position: new google.maps.LatLng(v.latitude, v.longitude);,
+                      map: map,
+                      title: 'none'
+                    });
+                    marker.addListener('click', function() {
+                      infowindow.open(map, marker);
+                    });
+
                 })
+
+
 
 //                     $( "#results" ).empty();
 //                      $.each(response, function(i,v){
