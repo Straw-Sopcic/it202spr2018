@@ -2,7 +2,7 @@ var cacheName = 'PM-0-1';
 var filesToCache = [
     '/',
     '/index.html',
-    '/js/new-age-min.js'];
+    '/js/new-age.min.js'];
 
 self.addEventListener('install', function(e) {
   console.log('[ServiceWorker] Install');
